@@ -1,0 +1,90 @@
+body{
+
+    background-color: grey;
+    
+}
+
+#story{
+    border:2px black inset;
+    background-color:white;
+    width: 400px;
+    min-height: 100px;
+    font-family: monospace;
+}
+
+#ach{
+    border:2px black inset;
+    background-color:white;
+    width: 400px;
+    min-height: 60px;
+    font-family: monospace;
+}
+
+#rank{
+    border:2px black inset;
+    background-color:white;
+    width: 400px;
+    min-height: 30px;
+    font-family: monospace;
+}
+
+#inv{
+    border:2px black inset;
+    background-color:white;
+    width: 400px;
+    min-height: 150px;
+
+    font-family: monospace;
+}
+
+.buttonFrame{
+    display:flex;
+    justify-content: center;
+    width: 400px;
+    height: 20px;
+}
+
+.buttonPosition{
+    width: 100px;
+    height: 20px;
+}
+
+.Ui1{
+    display: flex;
+    flex-direction:row;
+    width: 400px;
+    height:20px;
+}
+
+.moveToLeft1{
+    display:flex;
+    flex-direction: row;
+    gap: 10%;
+    width:300px;
+
+}
+
+.Ui2{
+    display: flex;
+    flex-direction:row;
+    width: 400px;
+    height:70px;
+}
+
+.moveToLeft2{
+    width:300px;
+}
+
+
+.moveToRight2{
+    width:100px;
+
+}
+
+
+.instruct{
+    text-align: center;
+    font-family: monospace;
+
+}
+
