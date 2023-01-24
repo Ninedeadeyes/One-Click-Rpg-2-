@@ -1,58 +1,127 @@
-body{
+@font-face{        /* Has to be in the same folder as css code to work  */ 
 
-    background-color: grey;
-    
+    src: url(OldSchoolAdventures-42j9.ttf);
+    font-family:CustomFont;
+}
+
+.headContainer{
+    display:flex;
+    position : fixed;   /*stays in the same place even if the page is scrolled */
+    background-color:white;/* rgb(173, 228, 223); */
+    justify-content: center;   /*set the alignment of primary axis (x) */ 
+    height: 80px;
+    align-items:center;    /*set the alignment of secondary axis (y) */ 
+    Z-index: 2;              /* everything hides behinder the header   */
+    top:0px;                /* so it is fixed to the sides of the page  */
+    left:0;
+    right:0; 
+}
+
+.headTitle{
+    color: black;
+    font-size: 30px;
+    font-family:CustomFont;
+}
+
+div{
+    padding-left: 3px;
+    padding-top: 3px;
+}
+
+body{
+    background-color: white;
+}
+
+#interface{
+    margin:auto;
+    width: 464px;
+    height:640px;
+    position:relative;
+    margin-top: 100px; /*  due to the header   */
+    border-radius:10px;
+    font-family: monospace;
+    font-size: 1.0em;
+    background-color: black;
+    color: white;
+    border: 3px;
+    border-color: darkred;
+    border-style: solid;
+
+}
+
+#positioning{
+    margin-left:15px;
 }
 
 #story{
-    border:2px black inset;
+    border:2px white inset;
     background-color:white;
-    width: 400px;
+    width: 420px;
     min-height: 100px;
-    font-family: monospace;
+    border-radius:5px;
+    color: white;
+    background-color: black;
 }
 
 #ach{
-    border:2px black inset;
+    border:2px white inset;
     background-color:white;
-    width: 400px;
+    width: 420px;
     min-height: 60px;
-    font-family: monospace;
+    border-radius:5px;
+    color:white;
+    background-color: black;
+  
 }
 
 #rank{
-    border:2px black inset;
+    border:2px white inset;
     background-color:white;
-    width: 400px;
+    width: 420px;
     min-height: 30px;
-    font-family: monospace;
+    border-radius:5px;
+    color:white;
+    background-color: black;
+
 }
 
 #inv{
     border:2px black inset;
-    background-color:white;
-    width: 400px;
+    color:white;
+    background-color: black;
+    width: 420px;
     min-height: 150px;
+    border-radius:5px;
 
-    font-family: monospace;
 }
 
 .buttonFrame{
     display:flex;
     justify-content: center;
-    width: 400px;
+    width: 420px;
     height: 20px;
 }
 
 .buttonPosition{
     width: 100px;
     height: 20px;
+    margin-left:15px;
+}
+
+button{
+    font-size: 14px;
+    color: darkred;
+    background-color: white;
+    font-family: monospace;
+    border-radius: 12px;
+
+
 }
 
 .Ui1{
     display: flex;
     flex-direction:row;
-    width: 400px;
+    width: 420px;
     height:20px;
 }
 
@@ -67,12 +136,12 @@ body{
 .Ui2{
     display: flex;
     flex-direction:row;
-    width: 400px;
+    width: 420px;
     height:70px;
 }
 
 .moveToLeft2{
-    width:300px;
+    width:320px;
 }
 
 
@@ -82,9 +151,20 @@ body{
 }
 
 
-.instruct{
-    text-align: center;
-    font-family: monospace;
-
+.music{
+    position:absolute;  
+    top:670px;
+    left:60px;
 }
+
+.instruct{
+    color: black;
+    position:absolute;  
+    top:650px;
+    left:60px;
+}
+
+
+
+
 
