@@ -43,7 +43,7 @@ let equipChoice;
 let foundItem=false;
 let foundArt=false; 
 let chanceOfArt;
-let printInventory="Inventory:"
+let printInventory=" ";
 let rankTitle;
 let endGame=false;
 
@@ -64,10 +64,10 @@ let enviroment=[" Woods of the Topsy Turvy King", "Forest of the Humourless Harl
 
 let enemyDescription=["deranged","tiny","drunk","sadistic","nihilistic","hungry","psychopathic","malnourished","zealous","hot-headed","mad","bitter","hateful","racist"]
 
-let enemy= ["hobbits","ponies ","farmers","kobolds","gnomes","jesters","harlequins","elves","druids","man size giants","goblins","dwarves","werefishes","cowmen","imps","fairies","bandit","bards",
+let enemy= ["hobbits","ponies ","farmers","kobolds","gnomes","jesters","harlequins","elves","druids","man size giants","goblins","dwarves","werefishe","cowmen","imps","fairies","bandit","bards",
                 "hermits","rangers","thieves","knights","rogues","orcs"];
 
-let npc= ["hobbit","pony ","farmer","kobold","gnome","jester","harlequin","elf","druid","giant","goblin","dwarf","werefishe","cowman","imp","fairy","bandit","bard",
+let npc= ["hobbit","pony ","farmer","kobold","gnome","jester","harlequin","elf","druid","giant","goblin","dwarf","werefish","cowman","imp","fairy","bandit","bard",
     "hermit","ranger","thief","knight","rogue","orc"];
 
 let npcDescription=["heart broken","tiny"," skinny","peaceful","silly","young", "shy","talkative", "nihilistic","hungry","lovestruck","sarcastic","forelorn",
@@ -212,8 +212,6 @@ window.onload = function(){
     explore();
 };
 
-
-
 function Dice(side){
     let result=Math.floor(Math.random()*side)+1;
         return result;
@@ -252,25 +250,44 @@ function explore(){
     
     document.querySelector("#theme").play();    // because onload is played first hence why let bkMusic wont' work. 
 
-    if (firstClick==true){
+    if (firstClick==true){       // Prevents first 'explore()' call on window.onload to increase any stats as we just need it to load data 
 
     }
 
 
     else{
 
+        clickCount+=1;
         gainGold=Dice(6)+Math.ceil(player.charisma/3)
         player.gold+=gainGold
         gainXp=Dice(5)+Math.ceil(player.level/2);
         player.xp+=gainXp;
         accumXp+=gainXp;
+
+        newEnemyNum=Dice(5)+Math.ceil(player.strength/3)
+        newNpc =randomChoice(npc); 
+        newNpcDesc=randomChoice(npcDescription);
+        newEnvir=randomChoice(enviroment); 
+        newEnemyDesc=randomChoice(enemyDescription);
+        newEnemy =randomChoice(enemy); 
+        newQuestItem=randomChoice(questItem);
+        newQuestAction=randomChoice(questAction) ;
+        newQuestDesc=randomChoice(questDescription);
+        killCount+=newEnemyNum;
+        
+        if (newEnemy=="goblins"){
+    
+            goblinCount+=newEnemyNum;
+    
+        }
+
     }
 
         if (accumXp>levelBreak){
 
             player.level+=1
             accumXp=0;
-            levelBreak+=100+(player.level*10);
+            levelBreak+=50+(player.level*10);
     
             player.strength+=Dice(4)-1;
             player.magic+=Dice(4)-1;
@@ -324,37 +341,14 @@ function explore(){
 
         }
 
-    newEnemyNum=Dice(5)+Math.ceil(player.strength/3)
-    newNpc =randomChoice(npc); 
-    newNpcDesc=randomChoice(npcDescription);
-    newEnvir=randomChoice(enviroment); 
-    newEnemyDesc=randomChoice(enemyDescription);
-    newEnemy =randomChoice(enemy); 
-    newQuestItem=randomChoice(questItem);
-    newQuestAction=randomChoice(questAction) ;
-    newQuestDesc=randomChoice(questDescription);
-    killCount+=newEnemyNum;
-    clickCount+=1;
-
-
-    if (newEnemy=="goblins"){
-
-        goblinCount+=newEnemyNum;
-
-    }
-
     rarity()
-
- 
 
     equipment=Dice(rare);
 
     if (firstClick) {
 
-        equipment=100;
+        equipment=100;    // Prevents first 'explore()' call on window.onload to increase any stats as we just need it to load data 
     } 
-
-
 
     if (equipment==1){
         foundItem=true;
@@ -627,7 +621,6 @@ function explore(){
             finalUpgrade=equipNew+(" + "+epicNum)  
         }
         
-
         player.trinket=finalUpgrade;
         
     }
@@ -637,7 +630,7 @@ function explore(){
         foundItem=false;
     }
 
-    if (firstClick){
+    if (firstClick){                          // Prevents first 'explore()' call on window.onload to increase any stats as we just need it to load data  
 
         quest=" Adventure awaits !! ";
     }
@@ -645,7 +638,7 @@ function explore(){
     else{
 
         quest="You explore the "+newEnvir+". You come across a "+newNpcDesc+" "+newNpc+". The "+newNpc+" request you to " +newQuestAction+" a "+newQuestDesc+" "+newQuestItem+
-        ". You defeat "+newEnemyNum+" "+newEnemyDesc+" "+newEnemy+" to "+newQuestAction+" the item. "+"You gain "+gainGold+" gold and "+gainXp+" experience points.";
+        ". You encounter "+newEnemyNum+" "+newEnemyDesc+" "+newEnemy+" which you defeated to "+newQuestAction+" the item. "+"You gain "+gainGold+" gold and "+gainXp+" experience points.";
     
         if (foundItem==true){
     
@@ -657,7 +650,7 @@ function explore(){
     
         }
     
-        chanceOfArt=Dice(80);
+        chanceOfArt=Dice(200);
     
             if (chanceOfArt==1){
     
@@ -795,8 +788,7 @@ function explore(){
         rankTitle= "Ranking: The Chosen one !!" 
     }
 
-
-    firstClick=false;
+    firstClick=false;    // after the first explore call (window.Onload) then progression can be made 
     inv.innerHTML=printInventory;
     rank.innerHTML=rankTitle; 
     ach.innerHTML=achTag;

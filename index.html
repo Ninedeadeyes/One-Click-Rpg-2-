@@ -12,81 +12,83 @@
 
 <body>
 
-    <div >
+    <header class="headContainer">                                    
+    
+        <div class="headTitle"> One Click Rpg 2</div>
 
-        <h1>ONE CLICK RPG 2 </h1>
-    
-        <div>Collect the 10 Artifacts of Chaos to free the world of evil.
-        </div>
-    
+    </header>
+
+
+    <div id="interface" >
         <p></p>
-        <div id="rank">Ranking: The Village Punch Bag </div>
-        <p></p>
-        <div id="story"></div>
-    
-        <div class="buttonFrame">
-            <div class="buttonPosition" id= "buttons">
-                <button onclick="explore()">Explore</button>
+        <div id="positioning" >
+            <div>Collect the 10 Artifacts of Chaos to free the world of evil.</div>
+        
+            <p></p>
+            <div id="rank">Ranking: The Village Punch Bag </div>
+            <p></p>
+            <div id="story"></div>
+            <p></p>
+        
+            <div class="buttonFrame">
+                <div class="buttonPosition" id= "buttons">
+                    <button onclick="explore()">Explore</button>
+                </div>
+        
             </div>
-    
-        </div>
-    
-        <p></p>
-    
-        <div class="Ui1">
-    
-            <div class="moveToLeft1" >
-    
-                <div>Gold :<span id="goldCount">0</span></div>
+        
+            <p></p>
+        
+            <div class="Ui1">
+        
+                <div class="moveToLeft1" >
+        
+                    <div>Gold :<span id="goldCount">0</span></div>
+                    
+                    <div>XP :<span id="xpCount">0</span> </div>
+        
+                    <div>Level :<span id="levelCount">1</span></div>
                 
-                <div>XP :<span id="xpCount">0</span> </div>
-    
-                <div>Level :<span id="levelCount">1</span></div>
-            
+                </div>
+        
+                <div class="moveToRight2" >Class :<span id="playerClass">Rogue</span></div>   <!--Seperated because Number will push to a second line-->
+                    
             </div>
-    
-            <div class="moveToRight2" >Class :<span id="playerClass">Rogue</span></div>   <!--Seperated because Number will push to a second line-->
+        
+            <p></p>
                 
-        </div>
+            <div class="Ui2">
+        
+                <div class="moveToLeft2">
+                    <div>Armour :<span id="playerArmour">empty</span></div>
+                    <div>Weapon :<span id="playerWeapon">empty</span></div>
+                    <div>Ring :<span id="playerRing">empty</span></div>
+                    <div>Trinket :<span id="playerTrinket">empty</span></div> 
+                </div>
+        
+                <div class="moveToRight2" >
+                    <div>Strength:<span id="playerStr">5</span></div>
+                    <div>Magic:<span id="playerMag">5</span></div>
+                    <div>Dexterity:<span id="playerDex">5</span></div>
+                    <div>Charisma:<span id="playerChr">5</span></div> 
+                </div>
+        
+            </div>
+        
+            <p></p>
+            <div id="ach">Achievement:</div>
+            <p>Inventory</p>
+            <div id="inv"></div>
+            <script src="./script.js"></script>
     
-        <p></p>
-            
-        <div class="Ui2">
+            <div class="music" >
     
-            <div class="moveToLeft2">
-                <div>Armour :<span id="playerArmour">empty</span></div>
-                <div>Weapon :<span id="playerWeapon">empty</span></div>
-                <div>Ring :<span id="playerRing">empty</span></div>
-                <div>Trinket :<span id="playerTrinket">empty</span></div> 
+                <audio id="theme" controls autoplay loop>
+                    <source src="music/fantasy.mp3" type="audio/mp3">
+                </audio> 
             </div>
     
-            <div class="moveToRight2" >
-                <div>Strength:<span id="playerStr">5</span></div>
-                <div>Magic:<span id="playerMag">5</span></div>
-                <div>Dexterity:<span id="playerDex">5</span></div>
-                <div>Charisma:<span id="playerChr">5</span></div> 
-            </div>
-    
-        </div>
-    
-        <p></p>
-        <div id="ach">Achievement:</div>
-        <p></p>
-        <div id="inv">Inventory:</div>
-        <script src="./script.js"></script>
-
-        <div>
-            
-            ( Press 'Ctrl' and 'r' to reset the game) 
-
-        </div>    
-
-        <div >
-
-            <audio id="theme" controls autoplay loop>
-                <source src="music/fantasy.mp3" type="audio/mp3">
-            </audio> 
-       
+            <div class="instruct"> ( Press 'Ctrl' and 'r' to reset the game) </div>
         </div>
         
     </div>
