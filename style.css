@@ -35,7 +35,7 @@ body{
 #interface{
     margin:auto;
     width: 464px;
-    height:640px;
+    height:670px;
     position:relative;
     margin-top: 100px; /*  due to the header   */
     border-radius:10px;
@@ -57,7 +57,7 @@ body{
     border:2px white inset;
     background-color:white;
     width: 420px;
-    min-height: 100px;
+    min-height: 110px;
     border-radius:5px;
     color: white;
     background-color: black;
@@ -67,10 +67,10 @@ body{
     border:2px white inset;
     background-color:white;
     width: 420px;
-    min-height: 60px;
+    min-height: 80px;
     border-radius:5px;
     color:white;
-    background-color: black;
+    background-color:black;
   
 }
 
@@ -90,7 +90,7 @@ body{
     color:white;
     background-color: black;
     width: 420px;
-    min-height: 150px;
+    min-height: 10px;
     border-radius:5px;
 
 }
@@ -129,7 +129,7 @@ button{
     display:flex;
     flex-direction: row;
     gap: 10%;
-    width:300px;
+    width:290px;
 
 }
 
@@ -145,22 +145,27 @@ button{
 }
 
 
-.moveToRight2{
-    width:100px;
+.moveToRight2{ 
+    width:160px;
+}
 
+.moveToRight1{ 
+    width:100px;
+    padding-top:1.5%;
+    gap: 10%;
 }
 
 
 .music{
     position:absolute;  
-    top:670px;
+    top:700px;
     left:60px;
 }
 
 .instruct{
     color: black;
     position:absolute;  
-    top:650px;
+    top:680px;
     left:60px;
 }
 

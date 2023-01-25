@@ -31,12 +31,12 @@ let newQuestItem;
 let newQuestAction;
 let newQuestDesc;
 let quest;
+let questChoice;
 
 let gainXp;
 let accumXp=0;
 let levelBreak=120;
 let rare;
-
 
 let equipment;
 let equipChoice;
@@ -60,26 +60,33 @@ let highHighNum=125;
 let epicNum=300;
 
 let enviroment=[" Woods of the Topsy Turvy King", "Forest of the Humourless Harlequins","Forgotten Graveyard of Ermm..","Castle of the Blackest Knight","Farm of Old McYondor","Bouncy Castle of Borgon",
-"Swamp of the Slimy Hobbits", "Lightest Dungeons", "Ruins of the Fallen Turnip God","Fun House of Eternal Damnation", "Wardrobes of Lady L Moore"]
+"Swamp of the Slimy Hobbits", "Lightest Dungeons", "Ruins of the Fallen Turnip God","Fun House of Eternal Damnation","Heart of Darkness" ,"Dead City that is formerly known as Doomville"
+,"Red Jester's Torture Chamber","Temple of Apshai","Dungeons of Doom","Goblin Fortress of Snikrik,","Hidden Hideout of Nine Dead Eyes","Mountains of the Wild Berserker",
+"Stronghold of Daggerfall","Walking Hills of Cthulhu","Forlorn Islands of Lost Souls","Mysterious Swampland of Kuluth"];
 
-let enemyDescription=["deranged","tiny","drunk","sadistic","nihilistic","hungry","psychopathic","malnourished","zealous","hot-headed","mad","bitter","hateful","racist"]
+let enemyDescription=["deranged","tiny","drunk","sadistic","nihilistic","hungry","psychopathic","malnourished","zealous","hot-headed","mad","bitter","hateful",
+                     "racist","nasty","cruel","cherophobic","fanatical","herophobic","tyrannical","chaos","enraged","enormous"]
 
 let enemy= ["hobbits","ponies ","farmers","kobolds","gnomes","jesters","harlequins","elves","druids","man size giants","goblins","dwarves","werefishe","cowmen","imps","fairies","bandit","bards",
-                "hermits","rangers","thieves","knights","rogues","orcs"];
+            "demons","thieves","knights","rogues","orcs","blobs","zombies","vampires","beholders","trolls","ettins","mimics","red jesters","succubuses","bone devils","Ragmen",
+            "clay golems","drows","gnolls","swamp hags","night goblins","half-ogres","hobgoblins","bog imps","owlbears","winter wolves","abominations", "beast men","killer clowns"];
 
 let npc= ["hobbit","pony ","farmer","kobold","gnome","jester","harlequin","elf","druid","giant","goblin","dwarf","werefish","cowman","imp","fairy","bandit","bard",
-    "hermit","ranger","thief","knight","rogue","orc"];
+    "hermit","ranger","thief","knight","rogue","orc","werepig","wizard","young man","young woman","old man","old woman","tinker","Ragman","blacksmith","clown"];
 
 let npcDescription=["heart broken","tiny"," skinny","peaceful","silly","young", "shy","talkative", "nihilistic","hungry","lovestruck","sarcastic","forelorn",
-"happy","friendly","optimistic","mysterious","beautiful","malnourished","drunk"]
+"happy","friendly","optimistic","mysterious","beautiful","malnourished","drunk","poor","dying"]
 
 let questDescription=["mysterious","cursed","valuable","holy","damaged","precious","talking","blood soaked","corrupted","beautiful"]
-let questItem=["Sword","Jewel","Artifact","Earring","Book","Statue","Figurine","Pendant","Dress","Puzzle Box","Love Locket","Bone Flute","Rag Doll","Voodoo Doll"]
+let questItem=["sword","jewel","artifact","earring","book","statue","figurine","pendant","dress","puzzle Box","love locket","bone flute","rag doll","voodoo doll"]
 
 let questAction=["deliver", "guard","fetch","steal","find","destroy","collect"]
 
-let Art=["Bone Flute of Lim Dul the Hateful","Gargut's Final Death Mask","Necro's Orb of Absolute Chaos","Morgan's Cursed Will","Modo Evil Eye","Bone of Turgot","Skull of Bobo",
-"Drums of Hodo","Scroll of Dungath","Mirror of Kalandra"]
+let questAdvance=[["a bounty sign","You find and capture the "],["a missing person sign","You find and rescue the "],["a lost love letter"," You find and give the letter back to the "],
+["an angry spirit swearing vengence","You find and lead the spirit to the"]]
+
+let Art=["The Bone Flute of Lim Dul the Hateful","Gargut's Final Death Mask","Necro's Orb of Absolute Chaos","Morgan's Cursed Will","Grim Fangs' Nine Dead Eyes",
+"The Red Beherit (Egg of the King)","The Clockwork Devil of Angus","The Necronomicon","The Death Note","Malakbel's Doomsday Clock "]
 
 let lowLowWeapons=["Pointy Feather","Sharp Twig ","Blind Faith","Fist of Hay"];
 let lowLowArmours=["Old Man Pajamas"," Spaghetti Hoop Mail ","Wrapping Paper","Sun Lotion"];
@@ -88,18 +95,18 @@ let lowLowTrinkets=["Old Sock", "Goblin Tooth","Gem of Equal Blessing/Curse","Po
 
 let lowMidWeapons=["Feather Duster"," Butter Knife ","Rolling Pin","Toliet Plunger"];
 let lowMidArmours=["Tin Foil Plate Mail","Christmas Jumper","Mud Armour","Card Board Box"];
-let lowMidRings=["Onion Ring", "Doughnut","Shiny Nut","Promise Ring"];
+let lowMidRings=["Onion Ring", "Doughnut","Paper Ring","Promise Ring"];
 let lowMidTrinkets=["Lucky Coin", "KeyRing","Amulet of Nothingness","Orc Skull"];
 
 let lowHighWeapons=["Bag of Marbles","Dangerous Looking Rock","Letter Opener Knife","A Ball and Sock"];
-let lowHighArmours=["Bear Rug "," Lumberjacks Vest ","Rags from the Ragman","Wooden Target Sign"];
-let lowHighRings=[" Stone Ring", "Wood Ring ","Ring of 1% Additional Power","Ring of 1% Additional Luck "];
-let lowHighTrinkets=["Rabbit's Paw", "Ugly RagDoll","Music Box","Bone Flute"];
+let lowHighArmours=["Bear Rug"," Lumberjacks Vest","Rags from the Ragman","Wooden Target Sign"];
+let lowHighRings=[" Stone Ring", "Wood Ring ","Ring of .01% Additional Power","Ring of .01% Additional Luck "];
+let lowHighTrinkets=["Rabbit's Paw", "Spooky RagDoll","Music Box","Bone Flute"];
 
 
 let midLowWeapons=["Fish Bone Spear","Big Bone","SlingShot","Frying Pan"];
 let midLowArmours=["Fur Coat","Leather Jacket","Extra Thick Jumper","Wizard Robe"];
-let midLowRings=["Rusty Ring", "The One Ring (Replica) ","Ring of 1% Additional Health","Ring of 2% Additional Luck"];
+let midLowRings=["Rusty Ring", "The One Ring (Replica) ","Ring of 1% Additional Health","Ring of 1% Additional Luck"];
 let midLowTrinkets=["Voodoo Doll", "Mildly Cursed Gem","Goblin Puppet","Love Locket"];
 
 let midMidWeapons=["Hunting Knife","Wood Axe","Rusty Sword","Wood Club"];
@@ -118,21 +125,21 @@ let highLowArmours=["Mithral Chain Mail","Full Plated Armour","Troll Hide Armour
 let highLowRings=[" Ring of Ice", "Ring of Fire ","Ring of Strength ","Ring of Chaos"];
 let highLowTrinkets=["Ice Amulet", "Fire Amulet"," Amulet of Power","Amulet Of Protection"];
 
-let highMidWeapons=["Holy Sword","FaceBreaker Gauntlet","Ratling Death Claws","Demon Axe"];
-let highMidArmours=["Dragon Scale Armour","Holy Plated Armour","Grand Wizard Robe","Shadow Armour"];
+let highMidWeapons=["Holy Sword","FaceBreaker Gauntlet","Ratling Death Claws","Greater Demon Axe"];
+let highMidArmours=["Dragon Scale Armour","Holy Knight Armour","Grand Wizard Robe","Shadow Armour"];
 let highMidRings=[" Ring of The Ice Troll ", "Ring of The Fire Snake ","Ring of The Chaos Giant ","Ring of Want"];
 let highMidTrinkets=[" Greater Ice Amulet", "Greater Fire Amulet"," Greater Amulet of Power","Greater Gem of Doom"];
 
 let highHighWeapons=["Power Sword","Doom Hammer","Tovek Hand Cannon","Death Lance of Belia"];
 let highHighArmours=["Armour of Greater Protection","Dragon Prince Armour ","Brimstone Full Plated Armour","Berserker Armour"];
 let highHighRings=[" Ring of Complete Destruction", "Ring of Unlimited Power ","The One Ring","Demon Ring"];
-let highHighTrinkets=["Genie in a Lamp", "Mechanical Beast"," Crimson Beheri","Lament Configuration Box"];
+let highHighTrinkets=["Genie in a Lamp", "Lament Configuration","Death Totem","Clockwork Fiend"];
 
-
-let epicWeapons=["Heavy Bolter","Power Sword","Assault Cannon","Force Sword"];
+let epicWeapons=["Heavy Bolter","Power Sword","Assault Cannon","ChainSword and Boltgun"];
 let epicArmours=["Power Armour","Terminator Armour","Centurion Armour","Runic Power Armour"];
 let epicRings=["Inquisitor Signet Ring", "Teleport Transponder Ring ","Adeptus Astartes Signet Ring "," Teleport Transponder Ring"];
 let epicTrinkets=["Krak Grenades", "Eye Implant"," Servo-Skull","Healer's Aegis"];
+
 
 
 
@@ -153,8 +160,7 @@ class Player {
     }
 }
 
-let player=new Player(0,0,1,"empty","empty","empty","empty",5,5,5,5,"Rogue")
-
+let player=new Player(0,0,1,"empty","empty","empty","empty",5,5,5,5,"None")
 
 function saveGame(){
     let gameSave={
@@ -165,7 +171,8 @@ function saveGame(){
         firstArtFound:firstArtFound,
         lastArtFound:lastArtFound,
         inventory:inventory,
-        printInventory:printInventory
+        printInventory:printInventory,
+        endGame:endGame
 
     };
 
@@ -183,11 +190,11 @@ function loadGame(){
     if (typeof savedGame.lastArtFound !=="undefined") lastArtFound= savedGame.lastArtFound;
     if (typeof savedGame.inventory !=="undefined") inventory= savedGame.inventory;
     if (typeof savedGame.printInventory !=="undefined") printInventory= savedGame.printInventory;
+    if (typeof savedGame.endGame !=="undefined") endGame= savedGame.endGame;
     
 };
 
 function resetGame(){
-
 
     if (confirm("Are you sure you want to reset the game?"))
     {
@@ -273,6 +280,7 @@ function explore(){
         newQuestItem=randomChoice(questItem);
         newQuestAction=randomChoice(questAction) ;
         newQuestDesc=randomChoice(questDescription);
+        NewQuestAdvance=randomChoice(questAdvance);
         killCount+=newEnemyNum;
         
         if (newEnemy=="goblins"){
@@ -301,7 +309,7 @@ function explore(){
 
             if ((player.strength>magDecide) &&(player.strength>dexDecide) &&(player.strength>chrDecide)){
 
-                player.build="Warrior"
+                player.build="Knight"
             }
 
             else if ((player.magic>strDecide) &&(player.magic>dexDecide) &&(player.magic>chrDecide)){
@@ -319,7 +327,7 @@ function explore(){
                 player.build="Bard"
             }
 
-            if (player.build=="Warrior"){
+            if (player.build=="Knight"){
 
                 player.strength+=2
             }
@@ -637,9 +645,23 @@ function explore(){
 
     else{
 
-        quest="You explore the "+newEnvir+". You come across a "+newNpcDesc+" "+newNpc+". The "+newNpc+" request you to " +newQuestAction+" a "+newQuestDesc+" "+newQuestItem+
-        ". You encounter "+newEnemyNum+" "+newEnemyDesc+" "+newEnemy+" which you defeated to "+newQuestAction+" the item. "+"You gain "+gainGold+" gold and "+gainXp+" experience points.";
+        questChoice=Dice(2)
+
+        if (questChoice==1){
+
+            quest="You travel to the "+newEnvir+". You find "+NewQuestAdvance[0]+" for a "+newNpcDesc+" "+newNpc+". "+NewQuestAdvance[1]+" "+newNpc+". You defeat "+newEnemyNum+
+            " "+newEnemyDesc+" "+newEnemy+" along the way. You are rewarded with "+gainGold+" gold and "+gainXp+" experience points.";
+
+        }
+         
+        else{
+
+            quest="You explore the "+newEnvir+". You come across a "+newNpcDesc+" "+newNpc+". The "+newNpc+" asks you to " +newQuestAction+" a "+newQuestDesc+" "+newQuestItem+
+            ". You encounter "+newEnemyNum+" "+newEnemyDesc+" "+newEnemy+", which you defeat to "+newQuestAction+" the item. "+"You are rewarded with "+gainGold+" gold and "+gainXp+" experience points.";
     
+        }
+
+
         if (foundItem==true){
     
            quest +=" You acquire some better loot( "+finalUpgrade+" )";
@@ -662,7 +684,7 @@ function explore(){
                     if (exists==false){
                         firstArtFound=true;   // achievement 
                         inventory.push(pickedArt)
-                        quest += "You find the "+pickedArt;
+                        quest += "You find "+pickedArt;
                     }
     
                     else{
@@ -681,13 +703,12 @@ function explore(){
         
         if (endGame==false){
     
-            if (inventory.length==10){
+            if (inventory.length==10 ){
     
                 lastArtFound=true;  // achievement 
                 alert("you have collected all 10 Artifacts !! You have saved the world and now can retire!")
                 alert("Or.. You can continue playing for better loot and power !!  ")
                 endGame=true;
-    
             }
         
         }
@@ -703,36 +724,53 @@ function explore(){
     }
 
     if (clickCount>99){
-        achTag+=" [100 Quests warm up] "
+        achTag+="[100 Quests warm up] "
     }
 
     if (firstArtFound){
 
-        achTag+="[First one found ]"
+        achTag+="[First Artifact] "
     }
 
     if (goblinCount>100){
 
-        achTag+=" [Goblin Slayer] ";
+        achTag+="[Goblin Slayer] ";
     }
 
     if (killCount>10000){
 
-        achTag+=" [Master Killer] ";
+        achTag+="[Master Killer (10,000)] ";
     }
 
-    if (clickCount>10000){
+    if (clickCount>3000){
 
-        achTag+=" [After 10,000 quests..] ";
+        achTag+="[A few thousand quests later...] ";
+    }
+
+    if (player.gold>=50000){
+        achTag+= "[Sir Goldalot (50,000)] "        
     }
 
     if (lastArtFound){
-
-        achTag+="[Main Quest completed]"
+        achTag+="[Let the End Game Grind Begin] "
     }
 
+    if (player.level>=40){
+        achTag+= "[Grind Master] "
+    }
 
-    
+    if (player.level>=50){
+        achTag+= "[Grind King] "
+    }
+
+    if (player.gold>=1000000){
+        achTag+= "[ Millionaire ] "
+    }
+
+    if (player.level>=80){
+        achTag+= "[Last Achievement, Congrats and bye ] "
+    }
+
     if (player.level >=1 && player.level <=3){
 
         rankTitle= "Ranking: The Village Punch Bag" 
@@ -765,20 +803,31 @@ function explore(){
 
     else if  (player.level >=14 && player.level <=16 ){
 
-        rankTitle= "Ranking: Professional Hero ( No more free work for you)"
+        rankTitle= "Ranking: The Ten a Penny Hero ( win more than you lose )"
     }
 
-    else if  (player.level >=14 && player.level <=16 ){
+    else if  (player.level >=17 && player.level <=19 ){
+
+        rankTitle= "Ranking: The Hardened Hero ( Orcs fear you )"
+    }
+
+    else if  (player.level >=20 && player.level <=22 ){
+
+        rankTitle= "Ranking: Professional Hero ( They pay you now )"
+    }
+
+    else if  (player.level >=23 && player.level <=25 ){
 
         rankTitle= "Ranking: 1st Class Hero ( They come to you first)"
     }
 
-    else if  (player.level >=17 && player.level <=19 ){
+
+    else if  (player.level >=26 && player.level <=28 ){
 
         rankTitle= "Ranking The Champion of Man (The best a man can be )"
     }
 
-    else if  (player.level >=17 && player.level <=19 ){
+    else if  (player.level >=29 && player.level <=31 ){
 
         rankTitle= "Ranking: Legendary Hero (Books are written about you)"
     }
