@@ -1,6 +1,6 @@
 @font-face{        /* Has to be in the same folder as css code to work  */ 
 
-    src: url(OldSchoolAdventures-42j9.ttf);
+    src: url(fonts/OldSchoolAdventures-42j9.ttf);
     font-family:CustomFont;
 }
 
@@ -146,7 +146,7 @@ button{
 
 
 .moveToRight2{ 
-    width:160px;
+    width:100px;
 }
 
 .moveToRight1{ 
