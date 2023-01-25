@@ -4,10 +4,9 @@ let achInput=document.getElementById("ach");
 let rankInput=document.getElementById("rank");
 let invInput=document.getElementById("inv");
 let clickButton=document.getElementById("click");
-
+const bkMusic = document.querySelector("#theme");
+let musicOn=false;
 let firstClick=false;
-let musicOff=true;
-
 //Achievements variables 
 let killCount=0;
 let goblinCount=0;
@@ -141,8 +140,11 @@ let epicTrinkets=["Krak Grenades", "Eye Implant"," Servo-Skull","Healer's Aegis"
 
  clickButton.addEventListener("click",()=>{
     explore();
-    document.querySelector("#theme").play();    // because onload is played first hence why let bkMusic wont' work. 
 
+    if (!musicOn){
+        musicOn=true;
+        bkMusic.play();
+    }
 });
 
 document.addEventListener("keydown",(event)=>{
