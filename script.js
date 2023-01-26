@@ -22,9 +22,11 @@ let gainGold;
 let newEnemyNum;
 let newNpc;
 let newNpcDesc;
+let newNpcDesc2;
 let newEnvir;
 let newEnemyDesc;
 let newEnemy; 
+let newEnemyAction;
 let newQuestItem;
 let newQuestAction;
 let newQuestAdvance;
@@ -59,26 +61,30 @@ let highHighNum=125;
 let epicNum=300;
 
 let enviroment=[" Woods of the Topsy Turvy King", "Forest of the Humourless Harlequins","Forgotten Graveyard of Ermm..","Castle of the Blackest Knight","Farm of Old McYondor","Bouncy Castle of Borgon",
-"Swamp of the Slimy Hobbits", "Lightest Dungeons", "Ruins of the Fallen Turnip God","Fun House of Eternal Damnation","Heart of Darkness" ,"Dead City that is formerly known as Doomville"
+"Swamp of the Slimy Hobbits", "Lightest Dungeons", "Ruins of the Fallen Turnip God","Fun House of Eternal Damnation","Heart of Darkness" ,"Dead City, that is formerly known as Alive City"
 ,"Red Jester's Torture Chamber","Temple of Apshai","Dungeons of Doom","Goblin Fortress of Snikrik,","Hidden Hideout of Nine Dead Eyes","Mountains of the Wild Berserker",
 "Stronghold of Daggerfall","Walking Hills of Cthulhu","Forlorn Islands of Lost Souls","Mysterious Swampland of Kuluth"];
 
 let enemyDescription=["deranged","tiny","drunk","sadistic","nihilistic","hungry","psychopathic","malnourished","zealous","hot-headed","mad","bitter","hateful",
                      "racist","nasty","cruel","cherophobic","fanatical","herophobic","tyrannical","chaos","enraged","enormous"]
 
-let enemy= ["hobbits","ponies ","farmers","kobolds","gnomes","jesters","harlequins","elves","druids","man size giants","goblins","dwarves","werefishe","cowmen","imps","fairies","bandit","bards",
+let enemy= ["hobbits","ponies ","farmers","kobolds","gnomes","jesters","harlequins","elves","druids","man size giants","goblins","dwarves","werefish","cowmen","imps","fairies","bandit","bards",
             "demons","thieves","knights","rogues","orcs","blobs","zombies","vampires","beholders","trolls","ettins","mimics","red jesters","succubuses","bone devils","Ragmen",
             "clay golems","drows","gnolls","swamp hags","night goblins","half-ogres","hobgoblins","bog imps","owlbears","winter wolves","abominations", "beast men","killer clowns"];
+
+let enemyAction=["attacked","tickled","mugged","held captive","harassed","kicked","punched","bullied","slapped","shoved",""];
 
 let npc= ["hobbit","pony ","farmer","kobold","gnome","jester","harlequin","elf","druid","giant","goblin","dwarf","werefish","cowman","imp","fairy","bandit","bard",
     "hermit","ranger","thief","knight","rogue","orc","werepig","wizard","young man","young woman","old man","old woman","tinker","Ragman","blacksmith","clown"];
 
-let npcDescription=["heart broken","tiny"," skinny","peaceful","silly","young", "shy","talkative", "nihilistic","hungry","lovestruck","sarcastic","forelorn",
+let npcDescription=["heart broken","tiny"," skinny","peaceful","silly","young", "shy","talkative", "nihilistic","hungry","lovestruck","sarcastic","forlorn",
 "happy","friendly","optimistic","mysterious","beautiful","malnourished","drunk","poor","dying"]
 
-let questDescription=["mysterious","cursed","valuable","holy","damaged","precious","talking","blood soaked","corrupted","beautiful"]
-let questItem=["sword","jewel","artifact","earring","book","statue","figurine","pendant","dress","puzzle Box","love locket","bone flute","rag doll","voodoo doll"]
+let npcDescription2=["heart broken","tiny"," skinny","silly","young","talkative", "nihilistic","hungry","lovestruck","forlorn",
+"mysterious","beautiful","drunk","poor","dying","rich","nasty","clever","creative","holy","greedy","loathsome","fat","stoic","witty","charming","depressed"]
 
+let questDescription=["mysterious","cursed","valuable","holy","damaged","precious","talking","blood soaked","corrupted","beautiful"]
+let questItem=["sword","jewel","artifact","earring","book","statue","figurine","pendant","dress","puzzle box","love locket","bone flute","rag doll","voodoo doll"]
 let questAction=["deliver", "guard","fetch","steal","find","destroy","collect"]
 
 let questAdvance=[["a bounty sign","You find and capture the "],["a missing person sign","You find and rescue the "],["a lost love letter"," You find and give the letter back to the "],
@@ -193,7 +199,6 @@ let saveGame=()=>{
 
 let loadGame=()=>{
     let savedGame=JSON.parse(localStorage.getItem("gameSave"));
-
     if (typeof savedGame.xp !=="undefined") xp= savedGame.xp;
     if (typeof savedGame.gold !=="undefined")gold = savedGame.gold;
     if (typeof savedGame.level !=="undefined") level = savedGame.level;
@@ -250,7 +255,7 @@ class Player {
 }
 
 let player=new Player(0,0,1,"empty","empty","empty","empty",5,5,5,5,"None");
-let {xp,gold,level,armour,weapon,ring,trinket,strength,magic,dexterity,charisma,build}=player; // destructuring 
+({xp,gold,level,armour,weapon,ring,trinket,strength,magic,dexterity,charisma,build}=player); // destructuring 
 
 let dice=side=>Math.floor(Math.random()*side)+1;
     
@@ -285,9 +290,11 @@ let explore=()=>{
         newEnemyNum=dice(5)+Math.ceil(strength/3)
         newNpc =randomChoice(npc); 
         newNpcDesc=randomChoice(npcDescription);
+        newNpcDesc2=randomChoice(npcDescription2);
         newEnvir=randomChoice(enviroment); 
         newEnemyDesc=randomChoice(enemyDescription);
         newEnemy =randomChoice(enemy); 
+        newEnemyAction=randomChoice(enemyAction);
         newQuestItem=randomChoice(questItem);
         newQuestAction=randomChoice(questAction) ;
         newQuestDesc=randomChoice(questDescription);
@@ -398,8 +405,7 @@ let explore=()=>{
             }
             
             weapon=finalUpgrade;
-            audioItem.play();   
-        
+            audioItem.play();          
     }
 
     else if (equipment==2){
@@ -624,18 +630,23 @@ let explore=()=>{
 
     else{
 
-        questChoice=dice(2)
+        questChoice=dice(10);
 
-        questChoice==1 ? quest="You travel to the "+newEnvir+". You find "+newQuestAdvance[0]+" for a "+newNpcDesc+" "+newNpc+". "+newQuestAdvance[1]+" "+newNpc+". You defeat "+newEnemyNum+
+        questChoice>=1 && questChoice<=3 ? quest="You travel to the "+newEnvir+". You find "+newQuestAdvance[0]+" for a "+newNpcDesc2+" "+newNpc+". "+newQuestAdvance[1]+" "+newNpc+". You defeat "+newEnemyNum+
         " "+newEnemyDesc+" "+newEnemy+" along the way. You are rewarded with "+gainGold+" gold and "+gainXp+" experience points.":
 
-        questChoice==2 && ( quest="You explore the "+newEnvir+". You come across a "+newNpcDesc+" "+newNpc+". The "+newNpc+" asks you to " +newQuestAction+" a "+newQuestDesc+" "+newQuestItem+
+        questChoice>=4 && questChoice<=6 ? quest="You journey towards the "+newEnvir+". You stumble upon a "+newNpcDesc+" "+newNpc+" who is being "+newEnemyAction+" by "+newEnemyNum+" "+newEnemyDesc+" "+newEnemy+". You defeat the "+newEnemyNum+" "+newEnemy+
+        ". The "+newNpc+" rewards you with a "+newQuestDesc+" "+newQuestItem+", which you sell for "+gainGold+" gold. You gain "+gainXp+" experience points.":
+
+        questChoice>=7 && questChoice<=9 ? ( quest="You explore the "+newEnvir+". You come across a "+newNpcDesc+" "+newNpc+". The "+newNpc+" asks you to " +newQuestAction+" a "+newQuestDesc+" "+newQuestItem+
         ". You encounter "+newEnemyNum+" "+newEnemyDesc+" "+newEnemy+", which you defeat to "+newQuestAction+" the item. "+"You are rewarded with "+gainGold+
-        " gold and "+gainXp+" experience points.");
+        " gold and "+gainXp+" experience points."):
+
+        questChoice==10 && (quest="You wonder into an inn for some rest, but are attacked by "+newEnemyNum+" "+newEnemyDesc+" "+newEnemy+
+        ". You defeat the "+newEnemyNum+" "+newEnemy+". You gain "+gainGold+" gold and "+gainXp+" experience points.");
         
         if (foundItem==true){
-    
-           quest +=" You acquire some better loot( "+finalUpgrade+" )";
+           quest +=" You acquire some better loot ( "+finalUpgrade+" )";
            foundItem=false;
         }
     
@@ -701,7 +712,7 @@ let explore=()=>{
     level>=40 && (achTag+="[Grind Master] ");
     level>=50 && (achTag+="[Grind King] ");
     gold>=1000000 && (achTag+="[ Millionaire ] ");
-    level>=50 && (achTag+="[Last Achievement, Congrats and bye ]");
+    level>=70 && (achTag+="[Last Achievement, Congrats and bye ]");
 
     level >=1 && level <=3 ?  rankTitle= "Ranking: The Village Punch Bag":
     level >=4 && level <=5 ?  rankTitle= "Ranking: The Village Weakling ( Making Progress  ) ":
