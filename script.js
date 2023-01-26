@@ -165,7 +165,18 @@ document.addEventListener("keydown",(event)=>{
 
 let saveGame=()=>{
     let gameSave={
-        player:player,
+        xp:xp,
+        gold:gold,
+        level:level,
+        armour:armour,
+        weapon:weapon,
+        ring:ring,
+        trinket:trinket,
+        strength:strength,
+        magic:magic,
+        dexterity:dexterity,
+        charisma:charisma,
+        build:build,
         killCount:killCount,
         goblinCount:goblinCount,
         clickCount:clickCount,
@@ -183,7 +194,17 @@ let saveGame=()=>{
 let loadGame=()=>{
     let savedGame=JSON.parse(localStorage.getItem("gameSave"));
 
-    if (typeof savedGame.player !=="undefined") player= savedGame.player;
+    if (typeof savedGame.xp !=="undefined") xp= savedGame.xp;
+    if (typeof savedGame.gold !=="undefined")gold = savedGame.gold;
+    if (typeof savedGame.level !=="undefined") level = savedGame.level;
+    if (typeof savedGame.armour !=="undefined") armour = savedGame.armour;
+    if (typeof savedGame.weapon !=="undefined") weapon=savedGame.weapon;
+    if (typeof savedGame.ring !=="undefined") ring = savedGame.ring;
+    if (typeof savedGame.trinket !=="undefined")trinket = savedGame.trinket;
+    if (typeof savedGame.strength !=="undefined") strength = savedGame.strength;
+    if (typeof savedGame.magic !=="undefined") magic= savedGame.magic;
+    if (typeof savedGame.charisma !=="undefined")charisma = savedGame.charisma;
+    if (typeof savedGame.build !=="undefined") build= savedGame.build;
     if (typeof savedGame.killCount !=="undefined") killCount= savedGame.killCount;
     if (typeof savedGame.clickCount !=="undefined") clickCount= savedGame.clickCount;
     if (typeof savedGame.firstArtFound !=="undefined") firstArtFound= savedGame.firstArtFound;
@@ -228,17 +249,17 @@ class Player {
     }
 }
 
-let player=new Player(0,0,1,"empty","empty","empty","empty",5,5,5,5,"None")
+let player=new Player(0,0,1,"empty","empty","empty","empty",5,5,5,5,"None");
 let {xp,gold,level,armour,weapon,ring,trinket,strength,magic,dexterity,charisma,build}=player; // destructuring 
 
 let dice=side=>Math.floor(Math.random()*side)+1;
     
 let rarity=()=>{
-    player.level<=10? rare=90:
-    player.level>=11 && player.level<=15? rare=140:
-    player.level>=16 && player.level<=20? rare=160:
-    player.level>=21 && player.level<=27? rare=300:
-    player.level>=28 && (rare=100);
+    level<=10? rare=90:
+    level>=11 && level<=15? rare=140:
+    level>=16 && level<=20? rare=160:
+    level>=21 && level<=27? rare=300:
+    level>=28 && (rare=100);
 
 }
 
@@ -255,13 +276,13 @@ let explore=()=>{
     else{
 
         clickCount+=1;
-        gainGold=dice(6)+Math.ceil(player.charisma/3)
-        player.gold+=gainGold
-        gainXp=dice(5)+Math.ceil(player.level/2);
-        player.xp+=gainXp;
+        gainGold=dice(6)+Math.ceil(charisma/3)
+        gold+=gainGold
+        gainXp=dice(5)+Math.ceil(level/2);
+        xp+=gainXp;
         accumXp+=gainXp;
 
-        newEnemyNum=dice(5)+Math.ceil(player.strength/3)
+        newEnemyNum=dice(5)+Math.ceil(strength/3)
         newNpc =randomChoice(npc); 
         newNpcDesc=randomChoice(npcDescription);
         newEnvir=randomChoice(enviroment); 
@@ -279,28 +300,28 @@ let explore=()=>{
 
         if (accumXp>levelBreak){
 
-            player.level+=1
+            level+=1
             accumXp=0;
-            levelBreak+=50+(player.level*10);
+            levelBreak+=50+(level*10);
     
-            player.strength+=dice(4)-1;
-            player.magic+=dice(4)-1;
-            player.dexterity+=dice(4)-1;
-            player.charisma+=dice(4)-1;
+            strength+=dice(4)-1;
+            magic+=dice(4)-1;
+            dexterity+=dice(4)-1;
+            charisma+=dice(4)-1;
 
-            let strDecide=player.strength+2;
-            let magDecide=player.magic+2;
-            let dexDecide=player.dexterity+2;
-            let chrDecide=player.charisma+2;
+            let strDecide=strength+2;
+            let magDecide=magic+2;
+            let dexDecide=dexterity+2;
+            let chrDecide=charisma+2;
 
-            player.strength>magDecide && player.strength>dexDecide && player.strength>chrDecide ?  player.build="Knight":
-            player.magic>strDecide && player.magic>dexDecide && player.magic>chrDecide ?  player.build="Mage":
-            player.dexterity>magDecide && player.dexterity>strDecide && player.dexterity>chrDecide ? player.build="Thief":
-            player.charisma>magDecide && player.charisma>dexDecide && player.charisma>strDecide ? player.build="Bard":
-            player.build=="Knight" ? player.strength+=2:
-            player.build=="Thief" ? player.dexterity+=2:
-            player.build=="Bard" ? player.charisma+=2:
-            player.build=="Mage" && (player.magic+=2);
+            strength>magDecide && strength>dexDecide && strength>chrDecide ?  build="Knight":
+            magic>strDecide && magic>dexDecide && magic>chrDecide ?  build="Mage":
+            dexterity>magDecide && dexterity>strDecide && dexterity>chrDecide ? build="Thief":
+            charisma>magDecide && charisma>dexDecide && charisma>strDecide ? build="Bard":
+            build=="Knight" ? strength+=2:
+            build=="Thief" ? dexterity+=2:
+            build=="Bard" ? charisma+=2:
+            build=="Mage" && (magic+=2);
         }
 
     rarity();
@@ -316,55 +337,55 @@ let explore=()=>{
         foundItem=true;
         equipChoice=dice(4)-1;
 
-            if (player.level<=3){
+            if (level<=3){
                 equipNew=lowLowWeapons[equipChoice];
                 lowLowNum +=dice(2);
                 finalUpgrade=equipNew+(" + "+lowLowNum)
             }
 
-            else if  (player.level >=4 && player.level <=6 ){
+            else if  (level >=4 && level <=6 ){
                 equipNew=lowMidWeapons[equipChoice]; 
                 lowMidNum +=dice(3)-1;
                 finalUpgrade=equipNew+(" + "+lowMidNum) 
             }
 
-            else if  (player.level >=7 && player.level <=9 ){
+            else if  (level >=7 && level <=9 ){
                 equipNew=lowHighWeapons[equipChoice]; 
                 lowHighNum+=dice(10)-2;
                 finalUpgrade=equipNew+(" + "+lowHighNum) 
             }
 
-            else if  (player.level >=10 && player.level <=12 ){
+            else if  (level >=10 && level <=12 ){
                 equipNew=midLowWeapons[equipChoice]; 
                 midLowNum +=dice(15)-2;
                 finalUpgrade=equipNew+(" + "+midLowNum) 
             }
 
-            else if  (player.level >=13 && player.level <=15 ){
+            else if  (level >=13 && level <=15 ){
                 equipNew=midMidWeapons[equipChoice]; 
                 midMidNum += dice(20)-4;
                 finalUpgrade=equipNew+(" + "+midMidNum) 
             }
 
-            else if  (player.level >=16 && player.level <=18 ){
+            else if  (level >=16 && level <=18 ){
                 equipNew=midHighWeapons[equipChoice]; 
                 midHighNum+=dice(25)-4;
                 finalUpgrade=equipNew+(" + "+midHighNum) 
             }
 
-            else if  (player.level >=19 && player.level <=21 ){
+            else if  (level >=19 && level <=21 ){
                 equipNew=highLowWeapons[equipChoice]; 
                 highLowNum +=dice(30)-6;
                 finalUpgrade=equipNew+(" + "+highLowNum) 
             }
 
-            else if  (player.level >=22 && player.level <=24 ){
+            else if  (level >=22 && level <=24 ){
                 equipNew=highMidWeapons[equipChoice]; 
                 highMidNum += dice(35)-6;
                 finalUpgrade=equipNew+(" + "+highMidNum) 
             }
 
-            else if  (player.level >=25 && player.level <=27){
+            else if  (level >=25 && level <=27){
                 equipNew=highHighWeapons[equipChoice]; 
                 highHighNum+=dice(40)-8;
                 finalUpgrade=equipNew+(" + "+highHighNum) 
@@ -376,7 +397,7 @@ let explore=()=>{
                 finalUpgrade=equipNew+(" + "+epicNum)  
             }
             
-            player.weapon=finalUpgrade;
+            weapon=finalUpgrade;
             audioItem.play();   
         
     }
@@ -385,56 +406,56 @@ let explore=()=>{
         foundItem=true;
         equipChoice=dice(4)-1;
 
-        if (player.level<=3){
+        if (level<=3){
 
             equipNew=lowLowArmours[equipChoice];  
             lowLowNum +=dice(2);
             finalUpgrade=equipNew+(" + "+lowLowNum)
         }
 
-        else if  (player.level >=4 && player.level <=6 ){
+        else if  (level >=4 && level <=6 ){
             equipNew=lowMidArmours[equipChoice]; 
             lowMidNum +=dice(3)-1;
             finalUpgrade=equipNew+(" + "+lowMidNum) 
         }
 
-        else if  (player.level >=7 && player.level <=9 ){
+        else if  (level >=7 && level <=9 ){
             equipNew=lowHighArmours[equipChoice]; 
             lowHighNum+=dice(10)-2;
             finalUpgrade=equipNew+(" + "+lowHighNum) 
         }
 
-        else if  (player.level >=10 && player.level <=12 ){
+        else if  (level >=10 && level <=12 ){
             equipNew=midLowArmours[equipChoice]; 
            midLowNum +=dice(15)-2;
             finalUpgrade=equipNew+(" + "+midLowNum) 
         }
 
-        else if  (player.level >=13 && player.level <=15 ){
+        else if  (level >=13 && level <=15 ){
             equipNew=midMidArmours[equipChoice];
             midMidNum += dice(20)-4;
             finalUpgrade=equipNew+(" + "+midMidNum) 
         }
 
-        else if  (player.level >=16 && player.level <=18 ){
+        else if  (level >=16 && level <=18 ){
             equipNew=midHighArmours[equipChoice]; 
             midHighNum+=dice(25)-4;
             finalUpgrade=equipNew+(" + "+midHighNum) 
         }
 
-        else if  (player.level >=19 && player.level <=21 ){
+        else if  (level >=19 && level <=21 ){
             equipNew=highLowArmours[equipChoice]; 
             highLowNum +=dice(30)-6;
             finalUpgrade=equipNew+(" + "+highLowNum) 
         }
 
-        else if  (player.level >=22 && player.level <=24 ){
+        else if  (level >=22 && level <=24 ){
             equipNew=highMidArmours[equipChoice]; 
             highMidNum += dice(35)-6;
             finalUpgrade=equipNew+(" + "+highMidNum) 
         }
 
-        else if  (player.level >=25 && player.level <=27){
+        else if  (level >=25 && level <=27){
             equipNew=highHighArmours[equipChoice]; 
             highHighNum+=dice(40)-8;
             finalUpgrade=equipNew+(" + "+highHighNum) 
@@ -446,7 +467,7 @@ let explore=()=>{
             finalUpgrade=equipNew+(" + "+epicNum)  
         }
         
-        player.armour=finalUpgrade;
+        armour=finalUpgrade;
         audioItem.play();   
         
     }
@@ -455,56 +476,56 @@ let explore=()=>{
         foundItem=true;
         equipChoice=dice(4)-1;
 
-        if (player.level<=3){
+        if (level<=3){
 
             equipNew=lowLowRings[equipChoice];  
             lowLowNum +=dice(2);
             finalUpgrade=equipNew+(" + "+lowLowNum)
         }
 
-        else if  (player.level >=4 && player.level <=6 ){
+        else if  (level >=4 && level <=6 ){
             equipNew=lowMidRings[equipChoice]; 
             lowMidNum +=dice(3)-1;
             finalUpgrade=equipNew+(" + "+lowMidNum) 
         }
 
-        else if  (player.level >=7 && player.level <=9 ){
+        else if  (level >=7 && level <=9 ){
             equipNew=lowHighRings[equipChoice]; 
             lowHighNum+=dice(10)-2;
             finalUpgrade=equipNew+(" + "+lowHighNum) 
         }
 
-        else if  (player.level >=10 && player.level <=12 ){
+        else if  (level >=10 && level <=12 ){
             equipNew=midLowRings[equipChoice];
             midLowNum +=dice(15)-2;
             finalUpgrade=equipNew+(" + "+midLowNum) 
         }
 
-        else if  (player.level >=13 && player.level <=15 ){
+        else if  (level >=13 && level <=15 ){
             equipNew=midMidRings[equipChoice]; 
             midMidNum += dice(20)-4
             finalUpgrade=equipNew+(" + "+midMidNum) 
         }
 
-        else if  (player.level >=16 && player.level <=18 ){
+        else if  (level >=16 && level <=18 ){
             equipNew=midHighRings[equipChoice]; 
             midHighNum+=dice(25)-4;
             finalUpgrade=equipNew+(" + "+midHighNum) 
         }
 
-        else if  (player.level >=19 && player.level <=21 ){
+        else if  (level >=19 && level <=21 ){
             equipNew=highLowRings[equipChoice]; 
             highLowNum +=dice(30)-6;
             finalUpgrade=equipNew+(" + "+highLowNum) 
         }
 
-        else if  (player.level >=22 && player.level <=24 ){
+        else if  (level >=22 && level <=24 ){
             equipNew=highMidRings[equipChoice]; 
             highMidNum += dice(35)-6;
             finalUpgrade=equipNew+(" + "+highMidNum) 
         }
 
-        else if  (player.level >=25 && player.level <=27){
+        else if  (level >=25 && level <=27){
             equipNew=highHighRings[equipChoice]; 
             highHighNum+=dice(40)-8;
             finalUpgrade=equipNew+(" + "+highHighNum) 
@@ -516,7 +537,7 @@ let explore=()=>{
             finalUpgrade=equipNew+(" + "+epicNum)  
         }
         
-        player.ring=finalUpgrade;
+        ring=finalUpgrade;
         audioItem.play();   
         
     }
@@ -525,56 +546,56 @@ let explore=()=>{
         foundItem=true;
         equipChoice=dice(4)-1;
 
-        if (player.level<=3){
+        if (level<=3){
 
             equipNew=lowLowTrinkets[equipChoice];  
             lowLowNum +=dice(2);
             finalUpgrade=equipNew+(" + "+lowLowNum)
         }
 
-        else if  (player.level >=4 && player.level <=6 ){
+        else if  (level >=4 && level <=6 ){
             equipNew=lowMidTrinkets[equipChoice]; 
             lowMidNum +=dice(3)-1;
             finalUpgrade=equipNew+(" + "+lowMidNum) 
         }
 
-        else if  (player.level >=7 && player.level <=9 ){
+        else if  (level >=7 && level <=9 ){
             equipNew=lowHighTrinkets[equipChoice]; 
             lowHighNum+=dice(10)-2;
             finalUpgrade=equipNew+(" + "+lowHighNum) 
         }
 
-        else if  (player.level >=10 && player.level <=12 ){
+        else if  (level >=10 && level <=12 ){
             equipNew=midLowTrinkets[equipChoice]; 
             midLowNum +=dice(15)-2;
             finalUpgrade=equipNew+(" + "+midLowNum) 
         }
 
-        else if  (player.level >=13 && player.level <=15 ){
+        else if  (level >=13 && level <=15 ){
             equipNew=midMidTrinkets[equipChoice]; 
             midMidNum += dice(20)-4;
             finalUpgrade=equipNew+(" + "+midMidNum) 
         }
 
-        else if  (player.level >=16 && player.level <=18 ){
+        else if  (level >=16 && level <=18 ){
             equipNew=midHighTrinkets[equipChoice]; 
             midHighNum+=dice(25)-4;
             finalUpgrade=equipNew+(" + "+midHighNum) 
         }
 
-        else if  (player.level >=19 && player.level <=21 ){
+        else if  (level >=19 && level <=21 ){
             equipNew=highLowTrinkets[equipChoice]; 
             highLowNum +=dice(30)-6;
             finalUpgrade=equipNew+(" + "+highLowNum) 
         }
 
-        else if  (player.level >=22 && player.level <=24 ){
+        else if  (level >=22 && level <=24 ){
             equipNew=highMidTrinkets[equipChoice]; 
             highMidNum += dice(35)-6;
             finalUpgrade=equipNew+(" + "+highMidNum) 
         }
 
-        else if  (player.level >=25 && player.level <=27){
+        else if  (level >=25 && level <=27){
             equipNew=highHighTrinkets[equipChoice]; 
             highHighNum+=dice(40)-8;
             finalUpgrade=equipNew+(" + "+highHighNum) 
@@ -586,7 +607,7 @@ let explore=()=>{
             finalUpgrade=equipNew+(" + "+epicNum)  
         }
         
-        player.trinket=finalUpgrade;
+        trinket=finalUpgrade;
         audioItem.play();   
         
     }
@@ -675,26 +696,26 @@ let explore=()=>{
     goblinCount>100 && (achTag+="[Goblin Slayer] ");
     killCount>10000 && (achTag+="[Master Killer (10,000)] ");
     clickCount>3000 && (achTag+="[A few thousand quests later...] ");
-    player.gold>=50000 && (achTag+="[Sir Goldalot (50,000)] ");
+    gold>=50000 && (achTag+="[Sir Goldalot (50,000)] ");
     lastArtFound && (achTag+="[Let the End Game Grind Begin] ");
-    player.level>=40 && (achTag+="[Grind Master] ");
-    player.level>=50 && (achTag+="[Grind King] ");
-    player.gold>=1000000 && (achTag+="[ Millionaire ] ");
-    player.level>=50 && (achTag+="[Last Achievement, Congrats and bye ]");
+    level>=40 && (achTag+="[Grind Master] ");
+    level>=50 && (achTag+="[Grind King] ");
+    gold>=1000000 && (achTag+="[ Millionaire ] ");
+    level>=50 && (achTag+="[Last Achievement, Congrats and bye ]");
 
-    player.level >=1 && player.level <=3 ?  rankTitle= "Ranking: The Village Punch Bag":
-    player.level >=4 && player.level <=5 ?  rankTitle= "Ranking: The Village Weakling ( Making Progress  ) ":
-    player.level >=6 && player.level <=7 ?  rankTitle= "Ranking: The Average Joe (No one cares) ":
-    player.level >=8 && player.level <=9 ?  rankTitle= "Ranking: The Village Punch Bag" :
-    player.level >=10 && player.level <=11 ?  rankTitle= "Ranking: The Beta Adventurer (Some nerds respect you)":
-    player.level >=12 && player.level <=13 ?  rankTitle= "Ranking: The Mighty Beta Adventurer (Goblins fear you )":
-    player.level >=14 && player.level <=15 ?  rankTitle= "Ranking: The Try-Hard Hero (Sometimes..You win )":
-    player.level >=16 && player.level <=17 ?  rankTitle= "Ranking: The Ten a Penny Hero ( win more than you lose )":
-    player.level >=18 && player.level <=19 ?  rankTitle= "Ranking: The Hardened Hero ( Orcs fear you )":
-    player.level >=20 && player.level <=21 ?  rankTitle= "Ranking: 1st Class Hero ( They come to you first)":
-    player.level >=22 && player.level <=25 ?  rankTitle= "Ranking The Champion of Man (The best a man can be )":
-    player.level >=26 && player.level <=29 ?  rankTitle= "Ranking: Legendary Hero (Books are written about you)":
-    player.level>=30 &&(rankTitle="Ranking: The Chosen one !!" );
+    level >=1 && level <=3 ?  rankTitle= "Ranking: The Village Punch Bag":
+    level >=4 && level <=5 ?  rankTitle= "Ranking: The Village Weakling ( Making Progress  ) ":
+    level >=6 && level <=7 ?  rankTitle= "Ranking: The Average Joe (No one cares) ":
+    level >=8 && level <=9 ?  rankTitle= "Ranking: The Village Punch Bag" :
+    level >=10 && level <=11 ?  rankTitle= "Ranking: The Beta Adventurer (Some nerds respect you)":
+    level >=12 && level <=13 ?  rankTitle= "Ranking: The Mighty Beta Adventurer (Goblins fear you )":
+    level >=14 && level <=15 ?  rankTitle= "Ranking: The Try-Hard Hero (Sometimes..You win )":
+    level >=16 && level <=17 ?  rankTitle= "Ranking: The Ten a Penny Hero ( win more than you lose )":
+    level >=18 && level <=19 ?  rankTitle= "Ranking: The Hardened Hero ( Orcs fear you )":
+    level >=20 && level <=21 ?  rankTitle= "Ranking: 1st Class Hero ( They come to you first)":
+    level >=22 && level <=25 ?  rankTitle= "Ranking The Champion of Man (The best a man can be )":
+    level >=26 && level <=29 ?  rankTitle= "Ranking: Legendary Hero (Books are written about you)":
+    level>=30 &&(rankTitle="Ranking: The Chosen one !!" );
 
     firstClick=false;    // after the first explore call (window.Onload) then progression can be made 
     invInput.innerHTML=printInventory;
@@ -702,18 +723,18 @@ let explore=()=>{
     achInput.innerHTML=achTag;
     storyInput.innerHTML=quest;
 
-    document.getElementById("goldCount").innerHTML=player.gold;
-    document.getElementById("xpCount").innerHTML=player.xp;
-    document.getElementById("levelCount").innerHTML=player.level;
-    document.getElementById("playerArmour").innerHTML=player.armour;
-    document.getElementById("playerWeapon").innerHTML=player.weapon;
-    document.getElementById("playerRing").innerHTML=player.ring;
-    document.getElementById("playerTrinket").innerHTML=player.trinket;
-    document.getElementById("playerStr").innerHTML=player.strength;
-    document.getElementById("playerMag").innerHTML=player.magic;
-    document.getElementById("playerDex").innerHTML=player.dexterity;
-    document.getElementById("playerChr").innerHTML=player.charisma;
-    document.getElementById("playerClass").innerHTML=player.build;
+    document.getElementById("goldCount").innerHTML=gold;
+    document.getElementById("xpCount").innerHTML=xp;
+    document.getElementById("levelCount").innerHTML=level;
+    document.getElementById("playerArmour").innerHTML=armour;
+    document.getElementById("playerWeapon").innerHTML=weapon;
+    document.getElementById("playerRing").innerHTML=ring;
+    document.getElementById("playerTrinket").innerHTML=trinket;
+    document.getElementById("playerStr").innerHTML=strength;
+    document.getElementById("playerMag").innerHTML=magic;
+    document.getElementById("playerDex").innerHTML=dexterity;
+    document.getElementById("playerChr").innerHTML=charisma;
+    document.getElementById("playerClass").innerHTML=build;
 
     saveGame()
 }
