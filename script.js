@@ -66,7 +66,7 @@ let enviroment=[" Woods of the Topsy Turvy King", "Forest of the Humourless Harl
 "Stronghold of Daggerfall","Walking Hills of Cthulhu","Forlorn Islands of Lost Souls","Mysterious Swampland of Kuluth"];
 
 let enemyDescription=["deranged","tiny","drunk","sadistic","nihilistic","hungry","psychopathic","malnourished","zealous","hot-headed","mad","bitter","hateful",
-                     "racist","nasty","cruel","cherophobic","fanatical","herophobic","tyrannical","chaos","enraged","enormous"]
+                     "racist","nasty","cruel","cherophobic","fanatical","herophobic","tyrannical","chaos"]
 
 let enemy= ["hobbits","ponies ","farmers","kobolds","gnomes","jesters","harlequins","elves","druids","man size giants","goblins","dwarves","werefish","cowmen","imps","fairies","bandit","bards",
             "demons","thieves","knights","rogues","orcs","blobs","zombies","vampires","beholders","trolls","ettins","mimics","red jesters","succubuses","bone devils","Ragmen",
@@ -77,17 +77,17 @@ let enemyAction=["attacked","tickled","mugged","held captive","harassed","kicked
 let npc= ["hobbit","pony ","farmer","kobold","gnome","jester","harlequin","elf","druid","giant","goblin","dwarf","werefish","cowman","imp","fairy","bandit","bard",
     "hermit","ranger","thief","knight","rogue","orc","werepig","wizard","young man","young woman","old man","old woman","tinker","Ragman","blacksmith","clown"];
 
-let npcDescription=["heart broken","tiny"," skinny","peaceful","silly","young", "shy","talkative", "nihilistic","hungry","lovestruck","sarcastic","forlorn",
-"happy","friendly","optimistic","mysterious","beautiful","malnourished","drunk","poor","dying"]
+let npcDescription=["heartbroken","tiny"," skinny","peaceful","silly","young", "shy","talkative", "nihilistic","hungry","lovestruck","sarcastic","forlorn",
+"happy","friendly","mysterious","beautiful","malnourished","drunk","poor","dying"]
 
-let npcDescription2=["heart broken","tiny"," skinny","silly","young","talkative", "nihilistic","hungry","lovestruck","forlorn",
+let npcDescription2=["heartbroken","tiny"," skinny","silly","young","talkative", "nihilistic","hungry","lovestruck","forlorn",
 "mysterious","beautiful","drunk","poor","dying","rich","nasty","clever","creative","holy","greedy","loathsome","fat","stoic","witty","charming","depressed"]
 
 let questDescription=["mysterious","cursed","valuable","holy","damaged","precious","talking","blood soaked","corrupted","beautiful"]
 let questItem=["sword","jewel","artifact","earring","book","statue","figurine","pendant","dress","puzzle box","love locket","bone flute","rag doll","voodoo doll"]
 let questAction=["deliver", "guard","fetch","steal","find","destroy","collect"]
 
-let questAdvance=[["a bounty sign","You find and capture the "],["a missing person sign","You find and rescue the "],["a lost love letter"," You find and give the letter back to the "],
+let questAdvance=[["a bounty sign","You find and capture the "],["a missing person sign","You find and rescue the "],["a lost love letter"," After a long search, you give the letter back to the "],
 ["an angry spirit swearing vengence","You find and lead the spirit to the"]]
 
 let Art=["The Bone Flute of Lim Dul the Hateful","Gargut's Final Death Mask","Necro's Orb of Absolute Chaos","Morgan's Cursed Will","Grim Fangs' Nine Dead Eyes",
@@ -632,8 +632,8 @@ let explore=()=>{
 
         questChoice=dice(10);
 
-        questChoice>=1 && questChoice<=3 ? quest="You travel to the "+newEnvir+". You find "+newQuestAdvance[0]+" for a "+newNpcDesc2+" "+newNpc+". "+newQuestAdvance[1]+" "+newNpc+". You defeat "+newEnemyNum+
-        " "+newEnemyDesc+" "+newEnemy+" along the way. You are rewarded with "+gainGold+" gold and "+gainXp+" experience points.":
+        questChoice>=1 && questChoice<=3 ? quest="You travel to the "+newEnvir+". You find "+newQuestAdvance[0]+" for a "+newNpcDesc2+" "+newNpc+". "+newQuestAdvance[1]+" "+newNpc+". Along the way, you defeat "+newEnemyNum+
+        " "+newEnemyDesc+" "+newEnemy+". You are rewarded with "+gainGold+" gold and "+gainXp+" experience points.":
 
         questChoice>=4 && questChoice<=6 ? quest="You journey towards the "+newEnvir+". You stumble upon a "+newNpcDesc+" "+newNpc+" who is being "+newEnemyAction+" by "+newEnemyNum+" "+newEnemyDesc+" "+newEnemy+". You defeat the "+newEnemyNum+" "+newEnemy+
         ". The "+newNpc+" rewards you with a "+newQuestDesc+" "+newQuestItem+", which you sell for "+gainGold+" gold. You gain "+gainXp+" experience points.":
