@@ -59,7 +59,7 @@ let epicNum=200;
 
 const enviroment=[" Woods of the Topsy Turvy King", "Forest of the Humourless Harlequins","Forgotten Graveyard of Ermm..","Castle of the Blackest Knight","Farm of Old McYondor","Bouncy Castle of Borgon",
 "Swamp of the Slimy Hobbits", "Lightest Dungeons", "Ruins of the Fallen Turnip God","Fun House of Eternal Damnation","Heart of Darkness" ,"Dead City, that is formerly known as Alive City"
-,"Red Jester's Torture Chamber","Temple of Apshai","Dungeons of Doom","Goblin Fortress of Snikrik,","Mountains of the Wild Berserker",
+,"Red Jester's Torture Chamber","Temple of Apshai","Dungeons of Doom","Goblin Fortress of Snikrik","Mountains of the Wild Berserker",
 "Stronghold of Daggerfall","Walking Hills of Cthulhu","Forlorn Islands of Lost Souls","Mysterious Swampland of Kuluth"];
 
 const enemyDescription=["deranged","tiny","drunk","sadistic","nihilistic","hungry","psychopathic","malnourished","zealous","hot-headed","mad","bitter","hateful",
@@ -86,13 +86,13 @@ const questItem=["sword","jewel","artifact","earring","book","statue","figurine"
 
 const questAction=["deliver", "guard","fetch","steal","find","destroy","collect"]
 
-const questAdvance=[["a bounty sign","You find and capture the "],["a help find poster","You find and rescue the "],["a lost love letter"," After a long search, you give the letter back to the "],
+const questAdvance=[["a bounty sign","You find and capture the "],["a 'missing/reward' poster","You find and rescue the "],["a lost love letter"," After a long search, you give the letter back to the "],
 ["an angry spirit swearing vengence","You find and lead the spirit to the"]]
 
 const Art=["The Bone Flute of Lim Dul the Hateful","Gargut's Final Death Mask","Necro's Orb of Absolute Chaos","Morgan's Cursed Will","Grim Fangs' Nine Dead Eyes",
 "The Red Beherit (Egg of the King)","The Clockwork Devil of Angus","The Necronomicon","The Death Note","Malakbel's Doomsday Clock "]
 
-const lowLowWeapons=["Pointy Feather","Sharp Twig ","Toothbrush","Fist of Hay"];
+const lowLowWeapons=["Pointy Feather","Sharp Twig ","Second Hand Toothbrush","Fist of Hay"];
 const lowLowArmours=["Old Man Pajamas"," Spaghetti Hoop Mail ","Wrapping Paper","Sun Lotion"];
 const lowLowRings=[" Gummy Ring", "Hula Hoop","Rusty Nut","Ring of Absolute Uselessness"];
 const lowLowTrinkets=["Old Sock", "Goblin Tooth","Gem of Equal Blessing/Curse","Pog"];
@@ -101,7 +101,7 @@ const lowMidArmours=["Tin Foil Plate Mail","Christmas Jumper","Mud Armour","Card
 const lowMidRings=["Onion Ring", "Doughnut","Jelly Ring","Promise Ring"];
 const lowMidTrinkets=["Lucky Penny", "Shiny Pog","Amulet of Nothingness","Orc Tooth"];
 const lowHighWeapons=["Bag of Marbles","Spiked Yo-Yo","Letter Opener","A Ball and Sock"];
-const lowHighArmours=["Bear Rug"," Lumberjacks Vest","Rags from the Ragman","Wooden Target Sign"];
+const lowHighArmours=["Bear Rug"," Lumberjack Vest","Rags from the Ragman","Wooden Target Sign"];
 const lowHighRings=["Bagel", "Sour Jelly Ring ","Ring of .01% Additional Power","Ring of .01% Additional Luck "];
 const lowHighTrinkets=["Tin Music Box", "Spooky Rag Doll","Pocket Totem","Imp Bone Flute"];
 const midLowWeapons=["Fish Bone Spear","Big Bone","SlingShot","Frying Pan"];
@@ -112,7 +112,7 @@ const midMidWeapons=["Hunting Knife","Wood Axe","Rusty Sword","Wood Club"];
 const midMidArmours=["Tin Plate Armour","Fur Armour","Leather Armour","Robe of Lesser Protection"];
 const midMidRings=["Stamina Ring", "Gold Ring ","Accuracy Ring","Luck Ring"];
 const midMidTrinkets=["Robotic Imp", "Monkey's Paw","Earring of Luck ","Grieving Stone"];
-const midHighWeapons=["Mithral Dagger","Bastard Sword","Crossbow","Orc Mace"];
+const midHighWeapons=["Mithral Dagger","Two Handed Sword","Crossbow","Orc Mace"];
 const midHighArmours=["Chain Mail","Rat Skin Tunic ","Studded Leather Armour","Robe of Protection"];
 const midHighRings=["Strength Ring", "Charm Ring ","Magic Ring","Dexterity Ring  "];
 const midHighTrinkets=["Blessed Pendant", "Amulet of Hatred"," Devil Bone Flute","Bracelet of Quick Thinking"];
@@ -267,7 +267,6 @@ let explore=()=>{
     }
 
     else{
-
         clickCount+=1;
         gainGold=dice(6)+Math.ceil(charisma/3)
         gold+=gainGold
@@ -293,6 +292,11 @@ let explore=()=>{
 
         if (accumXp>levelBreak){
 
+            build==="Knight" ? strength+=2:
+            build==="Thief" ? dexterity+=2:
+            build==="Bard" ? charisma+=2:
+            build==="Mage" && (magic+=2);        
+            audioLevelUp.play();
             level+=1
             accumXp=0;
             levelBreak+=50+(level*10);
@@ -308,14 +312,7 @@ let explore=()=>{
             strength>magDecide && strength>dexDecide && strength>chrDecide ?  build="Knight":
             magic>strDecide && magic>dexDecide && magic>chrDecide ?  build="Mage":
             dexterity>magDecide && dexterity>strDecide && dexterity>chrDecide ? build="Thief":
-            charisma>magDecide && charisma>dexDecide && charisma>strDecide ? build="Bard":
-            
-            audioLevelUp.play();
-            
-            build==="Knight" ? strength+=2:
-            build==="Thief" ? dexterity+=2:
-            build==="Bard" ? charisma+=2:
-            build==="Mage" && (magic+=2);          
+            charisma>magDecide && charisma>dexDecide && charisma>strDecide && (build="Bard");
         }
 
     rarity();
@@ -450,21 +447,20 @@ let explore=()=>{
 
         questChoice=dice(10);
        
-        questChoice>=1 && questChoice<=3 ? quest="You travel to the "+newEnvir+". You find "+newQuestAdvance[0]+" for a "+newNpcDesc2+" "+newNpc+". "+newQuestAdvance[1]+" "+newNpc+". Along the way, you defeat "+newEnemyNum+
-        " "+newEnemyDesc+" "+newEnemy+". You are rewarded with "+gainGold+" gold and "+gainXp+" experience points.":
+        questChoice>=1 && questChoice<=3 ? quest=`You travel to the ${newEnvir}. You find ${newQuestAdvance[0]} for a ${newNpcDesc2} ${newNpc}. ${newQuestAdvance[1]} ${newNpc}. Along the way, you defeat
+         ${newEnemyNum} ${newEnemyDesc} ${newEnemy}. You are rewarded with ${gainGold} gold and ${gainXp} experience points.`:
        
-        questChoice>=4 && questChoice<=6 ? quest="You journey towards the "+newEnvir+". You stumble upon a "+newNpcDesc+" "+newNpc+" who is being "+newEnemyAction+" by "+newEnemyNum+" "+newEnemyDesc+" "+newEnemy+". You defeat the "+newEnemyNum+" "+newEnemy+
-        ". The "+newNpc+" rewards you with a "+newQuestDesc+" "+newQuestItem+", which you sell for "+gainGold+" gold. You gain "+gainXp+" experience points.":
+        questChoice>=4 && questChoice<=6 ? quest=`You journey towards the ${newEnvir}. You stumble upon a ${newNpcDesc} ${newNpc} who is being ${newEnemyAction} by ${newEnemyNum} ${newEnemyDesc} ${newEnemy}. You defeat the ${newEnemyNum} 
+        ${newEnemy}. The ${newNpc} rewards you with a ${newQuestDesc} ${newQuestItem} which you sell for ${gainGold} gold. You gain ${gainXp} experience points.`:
        
-        questChoice>=7 && questChoice<=9 ? ( quest="You explore the "+newEnvir+". You come across a "+newNpcDesc+" "+newNpc+". The "+newNpc+" asks you to " +newQuestAction+" a "+newQuestDesc+" "+newQuestItem+
-        ". You encounter "+newEnemyNum+" "+newEnemyDesc+" "+newEnemy+", which you defeat to "+newQuestAction+" the item. "+"You are rewarded with "+gainGold+
-        " gold and "+gainXp+" experience points."):
-       
-        questChoice==10 && (quest="You wonder into an inn for some rest, but are attacked by "+newEnemyNum+" "+newEnemyDesc+" "+newEnemy+
-        ". You defeat the "+newEnemyNum+" "+newEnemy+". You gain "+gainGold+" gold and "+gainXp+" experience points.");
+        questChoice>=7 && questChoice<=9 ? quest=`You explore the ${newEnvir}. You come across a ${newNpcDesc} ${newNpc}. The ${newNpc} asks you to ${newQuestAction} a ${newQuestDesc} ${newQuestItem}.
+        You encounter ${newEnemyNum} ${newEnemyDesc} ${newEnemy},  which you defeat to ${newQuestAction} the item. You are rewarded with ${gainGold} gold and ${gainXp} experience points.`:
+
+        questChoice==10 && (quest=`You wonder into an inn for some rest, but are attacked by ${newEnemyNum} ${newEnemyDesc} ${newEnemy}. 
+        You defeat the ${newEnemyNum} ${newEnemy}. You gain ${gainGold} gold and ${gainXp} experience points.`);
         
         if (foundItem==true){
-           quest +=" You acquire some better loot ( "+finalUpgrade+" )";
+           quest +=`You acquire some better loot ( ${finalUpgrade} )`;
            foundItem=false;
         }
     
@@ -483,7 +479,7 @@ let explore=()=>{
                 if (exists==false){
                     firstArtFound=true;   // achievement 
                     inventory.push(pickedArt)
-                    quest += "You find "+pickedArt;
+                    quest += `You find ${pickedArt}`;
                     audioArt.play();
                 }
 

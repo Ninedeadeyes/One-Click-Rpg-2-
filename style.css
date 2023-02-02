@@ -158,15 +158,15 @@ button{
 
 .music{
     position:absolute;  
-    top:700px;
+    top:710px;
     left:60px;
 }
 
 .instruct{
     color: black;
     position:absolute;  
-    top:680px;
-    left:60px;
+    top:690px;
+    left:16px;
 }
 
 
