@@ -18,7 +18,13 @@ Play the game at
 
 https://ninedeadeyes.github.io/One-Click-Rpg-2-/
 
+I have also written a blog for the game with early versions of the game for beginners.
+
+https://tommykwong1984.wixsite.com/techlearn/post/one-click-rpg-2-evaluation
+
 Check out my other games at 
 
 https://ninedeadeyes.github.io/JavaScript-Mini-Arcade/
+
+
 
