@@ -8,7 +8,7 @@ Contain Features such as
 
 1) Auto save/load system ( save data in local storage ) 
 2) Original Music 
-3) Infinite play( Even after finishing the main quest, items and player levels will keep increasing as long as you are playing ) 
+3) Infinite game play( Even after finishing the main quest, items and player levels will keep increasing as long as you are playing ) 
 
 -All music written with Beepbox.
 
