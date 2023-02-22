@@ -65,9 +65,9 @@ const enviroment=[" Woods of the Topsy Turvy King", "Forest of the Humourless Ha
 const enemyDescription=["deranged","tiny","drunk","sadistic","nihilistic","hungry","psychopathic","malnourished","zealous","hot-headed","mad","bitter","hateful",
 "racist","nasty","cruel","cherophobic","fanatical","herophobic","tyrannical","chaos"]
 
-const enemy= ["hobbits","ponies ","farmers","kobolds","gnomes","jesters","harlequins","elves","druids","man size giants","goblins","dwarves","werefish","cowmen","imps","fairies","bandit","bards",
-"demons","thieves","knights","rogues","orcs","blobs","zombies","vampires","beholders","trolls","ettins","mimics","red jesters","succubuses","bone devils","Ragmen",
-"clay golems","drows","gnolls","swamp hags","night goblins","half-ogres","hobgoblins","bog imps","owlbears","winter wolves","abominations", "beast men","killer clowns"];
+const enemy= ["hobbits","ponies ","farmers","kobolds","gnomes","jesters","harlequins","elves","druids","man-size giants","goblins","dwarves","werefish","cowmen","imps","fairies","bandit","bards",
+"demons","thieves","knights","rogues","orcs","blobs","zombies","vampires","beholders","trolls","ettins","mimics","red jesters","succubuses","bone devils","ragmen",
+"clay golems","drows","gnolls","swamp hags","night goblins","half-ogres","hobgoblins","bog imps","owlbears","winter wolves","abominations", "beastmen","killer clowns"];
 
 const enemyAction=["attacked","tickled","mugged","held captive","harassed","kicked","punched","bullied","slapped"];
 
@@ -80,7 +80,7 @@ const npcDescription=["heartbroken","tiny"," skinny","peaceful","silly","young",
 const npcDescription2=["heartbroken","tiny"," skinny","silly","young","talkative", "nihilistic","hungry","lovestruck","forlorn",
 "mysterious","beautiful","drunk","poor","dying","rich","nasty","clever","creative","holy","greedy","loathsome","fat","stoic","witty","charming","depressed"]
 
-const questDescription=["mysterious","cursed","valuable","holy","damaged","precious","talking","blood soaked","corrupted","beautiful"]
+const questDescription=["mysterious","cursed","valuable","holy","damaged","precious","talking","blood soaked","corrupted","beautiful","blessed","cryptic"]
 
 const questItem=["sword","jewel","artifact","earring","book","statue","figurine","pendant","dress","puzzle box","love locket","bone flute","rag doll","voodoo doll"]
 
