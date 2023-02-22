@@ -113,9 +113,14 @@ button{
     color: darkred;
     background-color: white;
     font-family: monospace;
+    box-shadow: 0 2px #999;
     border-radius: 12px;
+}
 
-
+button:active{
+     transform: translateY(4px);
+     box-shadow: 0 .5px #666;
+  
 }
 
 .Ui1{
