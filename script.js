@@ -460,7 +460,7 @@ let explore=()=>{
         You defeat the ${newEnemyNum} ${newEnemy}. You gain ${gainGold} gold and ${gainXp} experience points.`);
         
         if (foundItem==true){
-           quest +=`You acquire some better loot ( ${finalUpgrade} )`;
+           quest +=` You acquire some better loot ( ${finalUpgrade} ).`;
            foundItem=false;
         }
     
@@ -502,7 +502,7 @@ let explore=()=>{
     
             if (inventory.length==10 ){ 
                 lastArtFound=true;  // achievement 
-                alert("you have collected all 10 Artifacts of Chaos !! You destroy them with your might powers and save the world from evil. You can retire in peace")
+                alert("you have collected all 10 Artifacts of Chaos !! You destroy them with your mighty powers and save the world from evil. You can retire in peace")
                 alert("Or.. You can continue grinding for better loot and power to become the 'Grind King' or even something greater ??  ")
                 endGame=true; // So that it is only called once rather everytime you load a game 
             }
