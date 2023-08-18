@@ -268,9 +268,9 @@ let explore=()=>{
 
     else{
         clickCount+=1;
-        gainGold=dice(6)+Math.ceil(charisma/3)
+        gainGold=dice(4)+Math.ceil(charisma/4)
         gold+=gainGold
-        gainXp=dice(5)+Math.ceil(level/2);
+        gainXp=dice(6)+Math.ceil(level/2);
         xp+=gainXp;
         accumXp+=gainXp;
         newEnemyNum=dice(5)+Math.ceil(strength/3)
