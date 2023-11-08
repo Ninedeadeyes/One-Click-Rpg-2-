@@ -246,8 +246,8 @@ class Player {
 }
 
 let player=new Player(0,0,1,"empty","empty","empty","empty",5,5,5,5,"None")
-({xp,gold,level,armour,weapon,ring,trinket,strength,magic,dexterity,charisma,build}=player); // destructuring so instead of player.gold we just use gold. Each data within the object become there own variable. 
-// not really needed but it makes the code much more organised. 
+({xp,gold,level,armour,weapon,ring,trinket,strength,magic,dexterity,charisma,build}=player); //destructuring so instead of player.gold we just use gold. Each data within the object become there own variable. 
+
 
 let dice=side=>Math.floor(Math.random()*side)+1;
 
