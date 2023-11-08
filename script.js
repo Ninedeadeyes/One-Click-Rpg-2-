@@ -245,9 +245,8 @@ class Player {
 
 }
 
-let player=new Player(0,0,1,"empty","empty","empty","empty",5,5,5,5,"None")
-({xp,gold,level,armour,weapon,ring,trinket,strength,magic,dexterity,charisma,build}=player); //destructuring so instead of player.gold we just use gold. Each data within the object become there own variable. 
-
+let player=new Player(0,0,1,"empty","empty","empty","empty",5,5,5,5,"None");
+({xp,gold,level,armour,weapon,ring,trinket,strength,magic,dexterity,charisma,build}=player); // destructuring so instead of player.gold we just use gold. Each data within the object become there own variable. 
 
 let dice=side=>Math.floor(Math.random()*side)+1;
 
@@ -269,9 +268,9 @@ let explore=()=>{
 
     else{
         clickCount+=1;
-        gainGold=dice(8)+(2*charisma)+5;
+        gainGold=dice(6)+Math.ceil(charisma/3)
         gold+=gainGold
-        gainXp=dice(6)+Math.ceil(level/2)+3;
+        gainXp=dice(5)+Math.ceil(level/2);
         xp+=gainXp;
         accumXp+=gainXp;
         newEnemyNum=dice(5)+Math.ceil(strength/3)
@@ -461,7 +460,7 @@ let explore=()=>{
         You defeat the ${newEnemyNum} ${newEnemy}. You gain ${gainGold} gold and ${gainXp} experience points.`);
         
         if (foundItem==true){
-           quest +=` You acquire some better loot ( ${finalUpgrade} ).`;
+           quest +=`You acquire some better loot ( ${finalUpgrade} )`;
            foundItem=false;
         }
     
@@ -503,7 +502,7 @@ let explore=()=>{
     
             if (inventory.length==10 ){ 
                 lastArtFound=true;  // achievement 
-                alert("you have collected all 10 Artifacts of Chaos !! You destroy them with your mighty powers and save the world from evil. You can retire in peace")
+                alert("you have collected all 10 Artifacts of Chaos !! You destroy them with your might powers and save the world from evil. You can retire in peace")
                 alert("Or.. You can continue grinding for better loot and power to become the 'Grind King' or even something greater ??  ")
                 endGame=true; // So that it is only called once rather everytime you load a game 
             }
