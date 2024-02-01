@@ -1,6 +1,6 @@
 # One-Click-Rpg-2-
 
-An Idle RPG inspired by Progress Quest. 
+A Incremental Clicker RPG inspired by Progress Quest. 
 
  The 'game play' is like playing Diablo but with your imagination  
 
